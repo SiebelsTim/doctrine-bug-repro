@@ -29,7 +29,7 @@ class Bug
     protected $engineer;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="reportedBugs")
+     * @ManyToOne(targetEntity="User", inversedBy="reportedBugs", fetch="EAGER")
      */
     protected $reporter;
 
@@ -86,7 +86,9 @@ class Bug
 
     public function setReporter($reporter)
     {
-        $reporter->addReportedBug($this);
+        if (null !== $reporter) {
+            $reporter->addReportedBug($this);
+        }
         $this->reporter = $reporter;
     }
 

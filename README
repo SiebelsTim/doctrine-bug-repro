@@ -1,15 +1,17 @@
-This is the code for the Doctrine 2 ORM tutorial.
+# Reproduction for bug where ManyToOne relation is reset when refetching entity with fetch=EAGER
 
-Last Update: Tutorial is now using Composer only
+## Prerequisites
 
-You can find the tutorial at:
+1. composer install
+2. ./vendor/bin/doctrine orm:schema-tool:create
+3. php create_user.php beberlei
+4. php create_product.php DBAL
+5. php create_bug.php 1 1 1
 
-https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html
+## Reproduce bug
 
-## Installation:
+    php test_example.php
 
-```bash
-$ git clone https://github.com/doctrine/doctrine2-orm-tutorial.git  # or: git clone git@github.com:doctrine/doctrine2-orm-tutorial.git
-$ cd doctrine2-orm-tutorial
-$ composer install
-```
+
+Note that this happens only when Bug::reporter has fetch mode set to EAGER.
+And this only happens when trying to set the relation to null.
